@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Support — Frutiger Aero2000</title>
+  <style>
+    :root { --bg:#f7f8fa; --card:#ffffff; --muted:#6b7280; --accent:#0b63d1; --radius:10px; }
+    html,body{height:100%}
+    body {
+      margin:0;
+      min-height:100%;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:#111827;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:2rem;
+    }
+    .card {
+      width:100%;
+      max-width:760px;
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:1.75rem;
+      box-shadow:0 8px 30px rgba(17,24,39,0.06);
+    }
+    h1 { margin:0 0 0.25rem 0; font-size:1.5rem; }
+    p.lead { margin:0 0 1rem 0; color:var(--muted); }
+    ul.devices { margin:0; padding-left:1.25rem; }
+    ul.devices li { margin:0.5rem 0; }
+    a { color:var(--accent); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    code { background:#f3f4f6; padding:0.15rem 0.35rem; border-radius:4px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace; font-size:0.95em; }
+    .foot { margin-top:1.25rem; color:var(--muted); font-size:0.95rem; }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="support-title">
+    <h1 id="support-title">Support</h1>
+    <p class="lead">Choose your device to view support files, installation notes, and ROM/format guidance.</p>
+
+    <ul class="devices" aria-label="Supported devices">
+      <li><a href="wii/index.html">Nintendo Wii</a></li>
+      <li><a href="wiiu/index.html">Nintendo Wii U</a></li>
+      <li><a href="3ds/index.html">Nintendo 3DS</a></li>
+      <li><a href="pc/index.html">Windows</a></li>
+    </ul>
+
+    <p class="foot">
+      Tip: If you prefer to keep each device in its own file, create <code>wii.html</code>, <code>wii-u.html</code>, and <code>3ds.html</code> in this folder.
+      Those pages will be listed here automatically when published.
+    </p>
+  </main>
+</body>
+</html>
