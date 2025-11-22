@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Error 0xCD5EL — Fluorine 1 Control Panel Error</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        :root { --bg:#eef7fb; --card:#ffffff; --accent:#2b7fc6; --muted:#6b7880; --danger:#c0392b; }
+        body { margin:0; font-family: Inter, "Segoe UI", Arial, sans-serif; background:var(--bg); color:#0f1b22; }
+        .wrap { max-width:760px; margin:48px auto; padding:28px; background:var(--card); border-radius:12px; box-shadow:0 8px 30px rgba(15,27,34,0.08); }
+        h1 { margin:0 0 6px 0; font-size:20px; color:var(--accent); }
+        .app { display:inline-block; background:#e8f5ff; color:var(--accent); padding:6px 10px; border-radius:8px; font-weight:600; margin-bottom:16px; }
+        p { margin:10px 0; line-height:1.45; color:#122029; }
+        .section { margin-top:18px; }
+        .section h2 { margin:0 0 8px 0; font-size:15px; color:#163248; }
+        ul { margin:8px 0 0 20px; }
+        .note { color:var(--muted); font-size:13px; margin-top:14px; }
+        .important { color:var(--danger); font-weight:700; }
+        .log-sample { background:#0b1b26; color:#cfeefc; padding:12px; border-radius:8px; font-family:monospace; font-size:13px; white-space:pre-wrap; margin-top:8px; }
+        footer { margin-top:26px; font-size:13px; color:var(--muted); text-align:center; }
+        a { color:var(--accent); text-decoration:none; }
+    </style>
+</head>
+<body>
+    <div class="wrap" role="main" aria-labelledby="title">
+        <h1 id="title">Error 0xCD5EL</h1>
+        <div class="app">Fluorine 1</div>
+
+        <p><strong>Short description:</strong> Fluorine 1 encountered an unexpected issue originating from the control panel. This error indicates the control panel failed or produced an invalid response during a control sequence required by the app.</p>
+
+        <div class="section">
+            <h2>What this means</h2>
+            <ul>
+                <li>The control panel sent an unexpected or malformed response while Fluorine 1 attempted to perform a control operation.</li>
+                <li>A control-panel subsystem (firmware, input board, comms module) may be unresponsive, misconfigured, or in an error state.</li>
+                <li>Transient conditions (power glitch, network interruption) or a persistent software/configuration mismatch can both trigger this error.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Common symptoms</h2>
+            <ul>
+                <li>Control commands appear to hang or fail without completing.</li>
+                <li>Fluctuating connectivity to the control panel (drops, retries, timeouts).</li>
+                <li>Control panel front-end shows an independent fault, reboot, or warning LED.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Immediate actions (quick triage)</h2>
+            <ul>
+                <li>Restart the control panel hardware and then restart Fluorine 1.</li>
+                <li>Verify power and physical connections (cables, ground, terminal blocks).</li>
+                <li>Check network connectivity if the control panel is networked (ping, switch port status).</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Advanced troubleshooting</h2>
+            <ul>
+                <li>Collect Fluorine 1 application logs around the error time (include timestamps).</li>
+                <li>Collect control-panel logs and, if available, debug/serial output.</li>
+                <li>Confirm firmware version and configuration on the control panel; check for known incompatibilities with the Fluorine 1 version in use.</li>
+                <li>Reproduce the failure with increased logging enabled and note the exact control command that triggers the error.</li>
+            </ul>
+            <div class="note">Example log snippet to include when reporting:</div>
+            <div class="log-sample">
+[2025-11-22T10:07:12Z] Fluorine1 INFO: sending control command: SET_MODE AUTO
+[2025-11-22T10:07:12Z] Fluorine1 WARN: no response from control panel (timeout 5000ms)
+[2025-11-22T10:07:17Z] Fluorine1 ERROR: 0xCD5EL — unexpected control panel response: &lt;null&gt;
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>How to resolve</h2>
+            <ul>
+                <li>Restart the control panel and Fluorine 1 in sequence (control panel first).</li>
+                <li>Update control-panel firmware to the recommended release and verify configuration settings match Fluorine 1's expected control protocol.</li>
+                <li>If using network transport, ensure stable connectivity and correct firewall/switch settings.</li>
+                <li>Apply any app-side compatibility patch if a known issue exists between Fluorine 1 and this control-panel revision.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>What to send to support</h2>
+            <ul>
+                <li>Error code: <strong>0xCD5EL</strong></li>
+                <li>Fluorine 1 version and control-panel model + firmware version</li>
+                <li>Application logs (with timestamps) and control-panel logs</li>
+                <li>Steps to reproduce and any recent changes (config updates, firmware, network changes)</li>
+                <li>Photos/screenshots of control-panel front panel or indicator LEDs when the fault occurred</li>
+            </ul>
+            <p class="important">If the control panel reports its own fault code, include that code — it often speeds diagnosis.</p>
+        </div>
+
+        <footer>
+            &copy; 2025 Frutiger-Aero2000 Support — Error reference for Fluorine 1
+        </footer>
+    </div>
+</body>
+</html>
