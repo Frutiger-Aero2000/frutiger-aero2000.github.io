@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Glossy & Transparent — Frutiger Aero</title>
+
+  <!-- Google Font (optional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-1: #0f172a;
+      --bg-2: #041021;
+      --accent: #7be7ff;
+      --accent-2: #b18cff;
+      --glass: rgba(255,255,255,0.06);
+      --glass-2: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.12);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.7);
+      --glass-reflect: rgba(255,255,255,0.08);
+      --card-radius: 14px;
+      --transition: 300ms cubic-bezier(.2,.9,.3,1);
+      color-scheme: dark;
+    }
+
+    /* Full page layout */
+    *{box-sizing: border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(123,231,255,0.06), transparent 8%),
+                  radial-gradient(900px 400px at 90% 85%, rgba(177,140,255,0.05), transparent 6%),
+                  linear-gradient(180deg,var(--bg-1),var(--bg-2) 60%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:48px;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:32px;
+    }
+
+    /* Decorative floating translucent blobs */
+    .blob{
+      position:fixed;
+      pointer-events:none;
+      filter: blur(40px);
+      opacity:0.45;
+      mix-blend-mode:screen;
+    }
+    .blob.one{width:420px;height:420px;left:-80px;top:-40px;background:linear-gradient(45deg,#7be7ff, #5ad1ff);}
+    .blob.two{width:360px;height:360px;right:-80px;bottom:-40px;background:linear-gradient(45deg,#b18cff,#9b6cff);opacity:0.35}
+
+    /* Page container */
+    .wrap{
+      width:100%;
+      max-width:1100px;
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:28px;
+      align-items:start;
+    }
+
+    /* Glass panel (main content) */
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--card-radius);
+      padding:28px;
+      backdrop-filter: blur(10px) saturate(120%);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      position:relative;
+      overflow:hidden;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .panel:focus-within, .panel:hover{
+      transform: translateY(-6px);
+      box-shadow: 0 18px 60px rgba(2,6,23,0.7);
+    }
+
+    header.top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .logo{
+      width:46px;height:46px;border-radius:10px;
+      background: linear-gradient(135deg,var(--accent),var(--accent-2));
+      box-shadow: 0 6px 20px rgba(123,231,255,0.08), inset 0 -6px 14px rgba(255,255,255,0.08);
+      display:inline-grid;place-items:center;color:#021; font-weight:700;
+      font-size:16px;
+    }
+
+    h1{margin:0;font-size:20px;letter-spacing:-0.02em}
+    p.lead{margin:6px 0 0;color:var(--muted);font-size:14px}
+
+    nav.transparent-nav{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .nav-btn{
+      --pad:10px 14px;
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.04);
+      color:var(--muted);
+      padding:var(--pad);
+      border-radius:10px;
+      font-size:13px;
+      cursor:pointer;
+      transition: all var(--transition);
+    }
+    .nav-btn:hover{
+      color:var(--text);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    /* Glossy hero card */
+    .hero{
+      display:flex;
+      gap:20px;
+      align-items:center;
+    }
+    .hero .glass-preview{
+      flex:1;
+      padding:22px;
+      border-radius:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.06);
+      position:relative;
+      overflow:hidden;
+      min-height:140px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .glass-preview .title{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .glass-preview h2{margin:0;font-size:16px}
+    .glass-preview .muted{color:var(--muted);font-size:13px}
+
+    /* glossy button with sheen */
+    .glossy{
+      --gpad:12px 22px;
+      display:inline-block;
+      position:relative;
+      padding:var(--gpad);
+      font-weight:600;
+      font-size:15px;
+      color:#021;
+      border-radius:999px;
+      cursor:pointer;
+      border:none;
+      overflow:hidden;
+      background:linear-gradient(180deg, #ffffff, #e6faff 40%, #d7f8ff 100%);
+      box-shadow: 0 8px 24px rgba(11,27,45,0.35), inset 0 1px 0 rgba(255,255,255,0.6);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .glossy:active{transform: translateY(2px)}
+    .glossy::after{
+      content:"";
+      position:absolute;
+      top:-60%;
+      left:-30%;
+      width:30%;
+      height:220%;
+      transform: rotate(25deg);
+      background: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.05));
+      filter: blur(8px);
+      transition: all 600ms cubic-bezier(.2,.9,.3,1);
+      opacity:0.95;
+      pointer-events:none;
+    }
+    .glossy:hover::after{
+      left:120%;
+      transition: all 700ms cubic-bezier(.2,.9,.3,1);
+    }
+
+    /* small translucent chips */
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{
+      font-size:13px;padding:8px 10px;border-radius:999px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--muted);
+    }
+
+    /* Right column (sidebar) */
+    .sidebar{
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .mini-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.06);
+      padding:16px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      box-shadow: 0 8px 24px rgba(2,6,23,0.5);
+    }
+    .mini-card .stat{display:flex;align-items:center;justify-content:space-between}
+    .mini-card .value{font-weight:700;font-size:20px}
+
+    /* glossy icon circle */
+    .icon-circle{
+      width:56px;height:56px;border-radius:12px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.06);
+      display:grid;place-items:center;color:var(--text);
+      box-shadow: inset 0 -6px 18px rgba(255,255,255,0.02), 0 8px 20px rgba(123,231,255,0.04);
+      font-weight:700;
+    }
+
+    /* reflection effect under panels */
+    .panel::after{
+      content:"";
+      position:absolute;
+      left:0;right:0;bottom:-20px;height:70px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.0));
+      transform:skewY(-3deg);
+      pointer-events:none;
+    }
+
+    /* Responsive */
+    @media (max-width:980px){
+      .wrap{grid-template-columns:1fr; padding:0}
+      body{padding:28px}
+    }
+
+    /* Accessibility focus */
+    .nav-btn:focus, .glossy:focus{outline:2px solid rgba(123,231,255,0.18); outline-offset:3px}
+  </style>
+</head>
+<body>
+  <!-- decorative blobs -->
+  <div class="blob one" aria-hidden="true"></div>
+  <div class="blob two" aria-hidden="true"></div>
+
+  <main class="wrap" role="main">
+    <section class="panel" aria-labelledby="main-heading">
+      <header class="top">
+        <div class="brand" aria-hidden="false">
+          <div class="logo" aria-hidden="true">Fa</div>
+          <div>
+            <h1 id="main-heading">Gloss & Glass — Demo</h1>
+            <p class="lead">Transparent UI elements, soft blurs and glossy highlights.</p>
+          </div>
+        </div>
+
+        <nav class="transparent-nav" aria-label="Main navigation">
+          <button class="nav-btn" type="button">Overview</button>
+          <button class="nav-btn" type="button">Components</button>
+          <button class="nav-btn" type="button">Docs</button>
+        </nav>
+      </header>
+
+      <div class="hero">
+        <div class="glass-preview" role="region" aria-labelledby="preview-title">
+          <div>
+            <div class="title">
+              <div class="icon-circle" aria-hidden="true">G</div>
+              <div>
+                <h2 id="preview-title">Glass Preview Card</h2>
+                <div class="muted">Backdrop blur, translucency and subtle border.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:16px">
+            <div class="chips" aria-hidden="true">
+              <span class="chip">Glass</span>
+              <span class="chip">Gloss</span>
+              <span class="chip">Transparent</span>
+            </div>
+
+            <div>
+              <button class="glossy" id="cta" aria-label="Primary action button">Try it</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- glossy preview with large translucent rounded rectangle -->
+        <div style="width:220px;">
+          <div class="mini-card" aria-hidden="false">
+            <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">
+              <div class="icon-circle" aria-hidden="true">∞</div>
+              <div>
+                <div style="font-weight:700">Glass Token</div>
+                <div class="muted" style="font-size:13px">Radius 14 · blur 10</div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:10px;align-items:center;justify-content:space-between">
+              <div>
+                <div class="muted" style="font-size:13px">Status</div>
+                <div class="value">Active</div>
+              </div>
+              <div>
+                <button class="nav-btn" type="button">Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section style="margin-top:20px;">
+        <h3 style="margin:0 0 8px 0">Examples & usage</h3>
+        <p class="muted" style="margin:0 0 18px 0">A few quick samples showing how to layer translucency and glossy highlights for a modern UI aesthetic.</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
+          <div class="mini-card" aria-hidden="false">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div style="font-size:13px;color:var(--muted)">Button</div>
+                <div style="margin-top:8px"><button class="glossy">Primary</button></div>
+              </div>
+              <div style="opacity:0.9">→</div>
+            </div>
+          </div>
+
+          <div class="mini-card">
+            <div style="font-size:13px;color:var(--muted)">Small chip</div>
+            <div style="margin-top:10px"><span class="chip">Transparent</span></div>
+          </div>
+
+          <div class="mini-card">
+            <div style="font-size:13px;color:var(--muted)">Input (glass)</div>
+            <div style="margin-top:8px">
+              <input aria-label="Search" placeholder="Search..." style="width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text);outline:none">
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="Sidebar">
+      <div class="mini-card">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-size:13px;color:var(--muted)">Theme</div>
+            <div style="font-weight:700">Glass (Dark)</div>
+          </div>
+          <div>
+            <button id="toggleTheme" class="nav-btn" aria-pressed="false" title="Toggle simple theme">Toggle</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-card">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-size:13px;color:var(--muted)">Preview</div>
+            <div style="font-weight:700">Glossy sheen</div>
+          </div>
+          <div>
+            <button class="glossy" id="playSheen">Preview</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-card" aria-hidden="false">
+        <div style="font-size:13px;color:var(--muted)">About</div>
+        <p style="margin-top:8px;color:var(--muted);font-size:13px">This simple demo uses CSS backdrop-filter and layered gradients to achieve glossy, transparent surfaces. Works best in modern browsers.</p>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    // Tiny interactivity: toggle a lighter "theme" by adjusting CSS variables
+    const toggle = document.getElementById('toggleTheme');
+    toggle.addEventListener('click', () => {
+      const pressed = toggle.getAttribute('aria-pressed') === 'true';
+      toggle.setAttribute('aria-pressed', String(!pressed));
+      if (!pressed) {
+        // light-ish variant
+        document.documentElement.style.setProperty('--bg-1', '#f6fbff');
+        document.documentElement.style.setProperty('--bg-2', '#e8f6ff');
+        document.documentElement.style.setProperty('--text', '#071428');
+        document.documentElement.style.setProperty('--muted', 'rgba(7,20,40,0.62)');
+        document.documentElement.style.setProperty('--glass-border', 'rgba(7,20,40,0.06)');
+        document.documentElement.style.setProperty('--glass', 'rgba(2,6,23,0.03)');
+        document.documentElement.style.setProperty('color-scheme', 'light');
+      } else {
+        // revert to dark
+        document.documentElement.style.setProperty('--bg-1', '#0f172a');
+        document.documentElement.style.setProperty('--bg-2', '#041021');
+        document.documentElement.style.setProperty('--text', 'rgba(255,255,255,0.92)');
+        document.documentElement.style.setProperty('--muted', 'rgba(255,255,255,0.7)');
+        document.documentElement.style.setProperty('--glass-border', 'rgba(255,255,255,0.12)');
+        document.documentElement.style.setProperty('--glass', 'rgba(255,255,255,0.06)');
+        document.documentElement.style.setProperty('color-scheme', 'dark');
+      }
+    });
+
+    // Manual sheen animation for demonstration: trigger by button
+    const play = document.getElementById('playSheen');
+    play.addEventListener('click', () => {
+      const btn = document.getElementById('cta');
+      // temporarily add a class that moves the sheen
+      btn.classList.add('sheen-play');
+      setTimeout(()=> btn.classList.remove('sheen-play'), 900);
+    });
+
+    // Add CSS rules for sheen-play dynamically (to keep markup clean)
+    (function addSheenStyle(){
+      const style = document.createElement('style');
+      style.innerHTML = `
+        .glossy.sheen-play::after{
+          left:120%;
+          transition: all 700ms cubic-bezier(.2,.9,.3,1);
+        }
+      `;
+      document.head.appendChild(style);
+    })();
+
+    // Progressive enhancement: if backdrop-filter unsupported, slightly increase opacity so shapes remain readable
+    (function detectBackdrop(){
+      const el = document.createElement('div');
+      el.style.backdropFilter = 'blur(1px)';
+      if (el.style.backdropFilter === '') {
+        // browser likely doesn't support backdrop-filter
+        document.documentElement.style.setProperty('--glass', 'rgba(255,255,255,0.08)');
+        document.documentElement.style.setProperty('--glass-2', 'rgba(255,255,255,0.06)');
+      }
+    })();
+  </script>
+</body>
+</html>
